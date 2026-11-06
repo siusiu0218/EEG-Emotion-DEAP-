@@ -1,0 +1,13 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>S1-E01 · 单受试者读取模块</title><link rel="stylesheet" href="../assets/lesson.css"></head>
+<body><p>GTE-Net · 项目编程题 S1-E01</p><h1>把受试者文件变成可用的信号与标签</h1>
+<p>你亲自实现一个读取模块，供下一步切窗使用。完成 <a href="../exercises/S1-E01/read_subject.py">read_subject.py</a> 的三个 TODO，提交代码与运行输出。</p>
+<h2>输入与输出</h2><p>文件读取已提供。subject['data'] 是形状 (40,40,8064) 的数组，三维依次为试验、通道、采样点；subject['labels'] 是形状 (40,4) 的评分数组，第 0 列是 Valence。</p>
+<pre><code>load_subject(file_path)
+    → eeg: (40,32,8064)，保留全部试验与采样点，取前32个通道
+    → targets: (40,)，整数标签；Valence &lt; 5 为0，&gt;= 5 为1</code></pre>
+<h2>需要的工具</h2><p>数组索引中逗号分隔各维；冒号表示保留全部，:n 取前 n 项；整数索引选中一个位置并去掉该维。可以循环生成标签，也可以比较数组后用 .astype(np.int64) 转成整数。</p>
+<h2>亲自运行</h2><pre><code>.\.venv\Scripts\python.exe exercises/S1-E01/read_subject.py</code></pre>
+<p>检查输出形状、标签类型与前10个标签。基本断言通过后，还需要评审是否选对通道、评分列和阈值。详见 <a href="../exercises/S1-E01/TASK.md">完整题目</a>。</p>
+<div class="hint">卡在哪个 TODO 或报错行，就告诉助手；可请求局部语法提示，不必先完成一套理论问答。保留原数据，本题不运行训练。</div>
+<footer><p>依据：<a href="../DatasetProcessSave.py">项目当前数据处理代码</a>、<a href="../docs/REPRODUCTION_PROTOCOL.md">复现协议第3、4节</a>。需要查语法时优先读 <a href="https://numpy.org/doc/stable/user/basics.indexing.html">NumPy 官方索引说明</a>。</p><p><a href="../reference/data-glossary.html">术语速查</a> · <a href="0001-read-subject-data.html">已有数据读取参考课（含答案，独立尝试前可暂不打开）</a></p></footer></body></html>

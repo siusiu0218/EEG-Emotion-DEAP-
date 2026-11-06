@@ -1,0 +1,29 @@
+ckpt_demo
+runs
+dataset
+datas/
+.venv/
+__pycache__/
+不一定用得上的模型脚本
+备份1021
+eegdiffmodel.py
+EGG-based emotionAI生成改进建议.docx
+GTE-Net说明文档.docx
+GTE_train_10_17.py
+mgs_net.py
+备份训练脚本.txt
+
+# Local configuration, private notes, and generated research artifacts
+.idea/
+*.py[cod]
+*.pth
+*.pt
+*.ckpt
+*.npz
+*.npy
+logs/
+.cache/
+.env
+.env.*
+DEAP_A_Database_for_Emotion_Analysis_Using_Physiological_Signals.pdf
+docs/小小学习笔记——仅供自己观看.md

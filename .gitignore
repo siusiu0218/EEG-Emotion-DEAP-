@@ -27,3 +27,8 @@ logs/
 .env.*
 DEAP_A_Database_for_Emotion_Analysis_Using_Physiological_Signals.pdf
 docs/小小学习笔记——仅供自己观看.md
+
+# Publish only these two docs; keep other documentation local
+/docs/*
+!/docs/REPRODUCTION_PROTOCOL.md
+!/docs/RESOURCES.md

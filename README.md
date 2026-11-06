@@ -21,7 +21,7 @@
 
 50 轮、100 轮和 378 轮结果来自同一训练链的续训分支，**不是多次独立实验的均值**。最终阶段连续 40 轮未达到累计 0.1 个百分点的改善阈值后停止，最佳值为训练日志记录的 75.48828125%。Macro-F1、混淆矩阵及多次运行的均值与标准差尚未报告。
 
-最终续训采用 `batch_size=32`、`weight_decay=1e-4`、`n_slices=1`，从第 100 轮存档恢复；完整超参数和提交命令见[复现协议第 11 节](docs/REPRODUCTION_PROTOCOL.md)。该实验使用基于 `a6facc96b2c159abe14b8d88faf95564d2634122` 未提交工作树派生的冻结副本，并非当前主分支的直接运行结果；代码校验和、命令、环境和终态证据见[实验日志](docs/EXPERIMENT_LOG.md)。
+最终续训采用 `batch_size=32`、`weight_decay=1e-4`、`n_slices=1`，从第 100 轮存档恢复；完整超参数和提交命令见[实验日志中的自适应续训记录](docs/EXPERIMENT_LOG.md)。该实验使用基于 `a6facc96b2c159abe14b8d88faf95564d2634122` 未提交工作树派生的冻结副本，并非当前主分支的直接运行结果；代码校验和、命令、环境和终态证据见[实验日志](docs/EXPERIMENT_LOG.md)。
 
 ### 如何理解这些结果
 
@@ -128,7 +128,7 @@ OK: model forward output=(1, 2)
 
 如果显存或内存不足，先把 `--batch_size 32` 改成 `16` 或 `8`。
 
-更多训练配置、服务器排错与续训命令见[复现协议](docs/REPRODUCTION_PROTOCOL.md)。这里的 1 epoch 命令用于检查训练链路，不会复现上表的 378 轮成绩；最终自适应续训使用了独立冻结副本。
+已运行实验的训练配置、服务器排错与续训命令见[实验日志](docs/EXPERIMENT_LOG.md)。这里的 1 epoch 命令用于检查训练链路，不会复现上表的 378 轮成绩；最终自适应续训使用了独立冻结副本。
 
 ## 项目结构
 
@@ -141,7 +141,7 @@ GTE-Net/
 ├── validate_training_runtime.py # scheduler 与数据增强检查
 ├── validate_smoke_outputs.py # 冒烟实验产物与重载核对
 ├── jobs/                    # Slurm 作业脚本
-├── docs/                    # 复现协议、实验日志与学习文档
+├── docs/                    # 实验日志、数据说明与学习文档
 ├── requirements.txt         # Python 依赖
 ├── dataset/DEAP/            # 原始数据与缓存（不提交）
 └── runs/                    # 检查点与曲线（不提交）
@@ -155,7 +155,6 @@ GTE-Net/
 | --- | --- |
 | [最短上手路线](docs/START_HERE_CN.md) | 环境检查与首次运行 |
 | [数据目录说明](docs/DATA_LAYOUT_CN.md) | 数据版本、目录和用途 |
-| [复现协议](docs/REPRODUCTION_PROTOCOL.md) | 标签、预处理、划分、冻结参数与命令 |
 | [实验日志](docs/EXPERIMENT_LOG.md) | 实际执行的验证、训练和结果证据 |
 | [相对上游的修改](docs/UPSTREAM_CHANGES.md) | 本地修复及其验证边界 |
 | [项目状态](CONTEXT.md) | 当前阶段、决策和待完成事项 |

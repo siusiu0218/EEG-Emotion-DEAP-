@@ -1,7 +1,0 @@
-<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>第一课：从受试者文件取出脑电和评分</title><link rel="stylesheet" href="../assets/lesson.css"></head><body><p>GTE-Net · 第一课 · 约 3 分钟</p><h1>从一个文件取出脑电和评分</h1><p>目标：独立理解并复现实验。今天只读代码，不运行全量处理。完成后，你能解释为什么信号数组从 40 个通道变为 32 个通道。</p><p>打开 <a href="../DatasetProcessSave.py">DatasetProcessSave.py</a>，找到第 177–182 行。</p><pre><code>with open(file_path, 'rb') as f:
-    subject_data = pickle.load(f, encoding='latin1')
-
-raw_eeg_data = subject_data['data'][:, :32, :]
-raw_labels = subject_data['labels']</code></pre><h2>读出来的是什么？</h2><p>一个 .dat 文件对应一名受试者。这里打开文件，读取到 subject_data，再从中分别取出信号 data 和评分 labels。文件含 40 次试验，不是只有一个脑电窗口。</p><p>信号的形状是 (40, 40, 8064)，依次表示试验数、通道数、每个通道的采样点数。模型使用前 32 个 EEG 通道。</p><pre><code>[:, :32, :]
-全部试验，前32个通道，全部采样点
-(40, 40, 8064) → (40, 32, 8064)</code></pre><p>评分形状为 (40, 4)：每次试验有 Valence、Arousal、Dominance、Liking 四项评分。当前只是取出评分，后续才转换为二分类标签。</p><div class="hint">这几行在选择信号和评分，还没有切成 1 秒窗口，也没有训练模型。</div><h2>你来判断</h2><p>执行这行选取后，改变的是试验数量、通道数量，还是采样点数量？先自己说出理由。</p><details><summary>想好后查看答案</summary><p>通道数量从 40 变为 32；第一个和第三个冒号保留全部试验与采样点。</p></details><footer><p>不清楚的地方随时问助手；回答练习后再进入下一步。</p><p>来源：<a href="../docs/REPRODUCTION_PROTOCOL.md">本地复现方案第 3 节</a> · <a href="https://numpy.org/doc/stable/user/basics.indexing.html">NumPy 官方索引文档</a> · <a href="../reference/data-glossary.html">术语速查</a></p></footer></body></html>
